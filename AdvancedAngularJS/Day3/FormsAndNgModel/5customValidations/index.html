@@ -1,0 +1,37 @@
+<!--
+An integer directive that validates whether the input is a valid integer. For example, 1.23 is an invalid value, since it contains a fraction. Note that we validate the viewValue (the string value of the control), and not the modelValue. This is because input[number] converts the viewValue to a number when running the $parsers.
+
+A username directive that asynchronously checks if a user-entered value is already taken. We mock the server request with a $q deferred.
+-->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Example </title>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="script.js"></script>
+</head>
+
+<body ng-app="form-example1">
+    <form name="form" class="css-form" novalidate>
+        <div>
+            Size (integer 0 - 10):
+            <input type="number" ng-model="size" name="size" min="0" max="10" integer />{{size}}
+            <br />
+            <span ng-show="form.size.$error.integer">The value is not a valid integer!</span>
+            <span ng-show="form.size.$error.min || form.size.$error.max">
+      The value must be in range 0 to 10!</span>
+        </div>
+
+        <div>
+            Username:
+            <input type="text" ng-model="name" name="name" username />{{name}}
+            <br />
+            <span ng-show="form.name.$pending.username">Checking if this name is available...</span>
+            <span ng-show="form.name.$error.username">This username is already taken!</span>
+        </div>
+    </form>
+</body>
+
+</html>

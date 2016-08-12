@@ -1,0 +1,4 @@
+https://github.com/jedrichards/angularjs-handbook#modules 
+http://tutorials.jenkov.com/angularjs/scope-hierarchy.html 
+https://docs.angularjs.org/guide/introduction
+http://viralpatel.net/blogs/angularjs-introduction-hello-world-tutorial/ 

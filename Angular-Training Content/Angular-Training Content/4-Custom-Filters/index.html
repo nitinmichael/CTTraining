@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Controller-Inheritance</title>
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body ng-app="myReverseFilterApp">
+<div ng-controller="MyController">
+  <input ng-model="greeting" type="text"><br>
+  No filter: {{greeting}}<br>
+  Reverse: {{greeting|reverse}}<br>
+  Reverse + uppercase: {{greeting|reverse:true}}<br>
+    
+    Rohan->{{myName}}
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="controller/controller.js"></script>
+</body>
+</html>

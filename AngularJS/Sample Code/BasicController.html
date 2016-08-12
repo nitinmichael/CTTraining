@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+<title>Basic Demo on Controller</title>
+<script type="text/javascript"
+    src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="PatientController">
+     <div style="float:left;"><b>Patient Name:</b></div>
+     <div tyle="float:right;">{{ patientName }}</div>
+</div>
+<script type="text/javascript">
+    function PatientController($scope) {
+        $scope.patientName = "Test, Patient";
+    }
+</script>
+</body>
+</html>

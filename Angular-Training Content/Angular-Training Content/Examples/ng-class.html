@@ -1,0 +1,42 @@
+<!doctype html>
+<html ng-app>
+  <head>    
+    <style>
+      .test {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div ng-controller="SettingsController">
+      <span ng-class="{test: obj.value1 == 'someothervalue'}">look at my class (not working)</span><br>
+      current value: {{ obj.value1 }}<br><br>
+
+      <span ng-class="{test: obj.value2}">look at my class (working)</span><br>
+      current value: {{ obj.value2 }}<br><br>
+
+      <span ng-class="{test: checkValue1()}">same as first but using function (working)</span><br>
+      current value: {{ obj.value1 }}<br><br>
+
+      <a href ng-click="obj.value1 = 'someothervalue'">change value 1 to someothervalue</a><br>
+      <a href ng-click="obj.value1 = 'somevalue'">change value 1 to somevalue</a>
+
+    </div>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+        <script>
+        function SettingsController($scope) {
+              $scope.obj = {
+                value1: 'somevalue',
+                value2: false
+              }
+
+              $scope.checkValue1 = function() {
+                return $scope.obj.value1 === 'someothervalue';
+              }
+        }
+      </script>
+
+
+  </body>
+</html>

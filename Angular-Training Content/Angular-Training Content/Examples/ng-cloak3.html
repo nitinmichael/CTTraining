@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .splash {
+                display: none;
+            }
+
+            [ng-cloak].splash {
+                display: block !important;
+            }
+
+            .splash {
+              position: absolute;
+                top: 0;
+                left: 0;
+                height:100%;
+                width:100%;	
+                filter: alpha(opacity=60);
+                opacity: 0.6;
+                background: #000;
+            }
+
+            .splash h2 {
+                text-align: center;
+                font-size: 4em;
+                color:white;			
+            }
+        
+        </style>
+    </head>
+
+<body>
+
+<div class="splash" >
+  <h2>Loading</h2>
+</div>	
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+
+<script>
+  var app = angular.module("myApp", []);
+      app.controller("mainController", ["$scope", function($scope) {
+          $scope.greeting = "Hello";            
+  	$scope.name = "world";            
+      }]);
+  
+  var body = document.getElementsByTagName('body')[0];
+  
+  setTimeout(function() {
+    body.setAttribute('ng-app', 'myApp');
+    angular.bootstrap(body, ['ng', 'myApp']);
+  }, 2000);
+</script>
+</html>
+

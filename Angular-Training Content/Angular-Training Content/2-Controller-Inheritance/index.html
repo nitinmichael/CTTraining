@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Controller-Inheritance</title>
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body ng-app="scopeInheritance">
+<div class="spicy">
+	<div ng-controller="MainController">
+		<p>Good {{timeOfDay}}, {{name}}!</p>
+        <input ng-init="user.xyz=10;" ng-model="user.xyz" type="number"/>
+            
+        
+
+		<div ng-controller="ChildController">
+			<p>Good {{timeOfDay}}, {{name}}!</p>
+
+			<div ng-controller="GrandChildController" ng-if="user.xyz>=10">
+				<p>Good {{timeOfDay}}, {{name}}!</p>
+                <button ng-click="db()">debug</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="controller/controller.js"></script>
+</body>
+</html>

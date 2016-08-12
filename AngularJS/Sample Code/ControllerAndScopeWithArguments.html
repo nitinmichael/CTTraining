@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+	<html ng-app>
+	<head>
+		<title>Basic Demo On Controller And Scope With Argument</title>
+		<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+	</head>
+	<body>
+		<div ng-controller="PatientController">
+			<div>
+				<div style="float:left;"><b>Patient Name:</b></div>
+				<div tyle="float:right;">{{ patient }}</div>
+			</div>			
+			<div>&nbsp;</div>
+			<div>
+				<div style="float:left;"><b>Patient Status:</b></div>
+				<div tyle="float:right;">{{ patientStatus }}</div>
+			</div>
+			<div>&nbsp;</div>
+			<div>
+				<input type="button" ng-click="checkPatientStatus(1)" value="Existing patient" />
+				<input type="button" ng-click="checkPatientStatus(0)" value="Newly arrived patient" />
+			</div>
+		</div>
+		<script type="text/javascript">
+		function PatientController($scope) {			
+			$scope.patient = "Test, Patient";
+			$scope.patientStatus = "";
+			$scope.checkPatientStatus = function(patientStatus) {
+				if(patientStatus){
+					$scope.patientStatus = this. patient +" is existing patient.";
+				}else{
+					$scope.patientStatus = this. patient +" is newly arrived patient.";
+				}
+			};
+		}
+		</script>
+	</body>
+	</html>

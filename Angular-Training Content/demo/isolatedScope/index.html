@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <title>ISOLATED SCOPE TUTORIAL</title>
+    
+<!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <style>
+            .row{background: rgba(0,0,0,0.1);}
+            .col-xs-2,.col-xs-12,.col-xs-10{
+                border: solid 3px beige;
+                min-height: 40px;
+            }
+            .childDir{margin-top:18px;}
+        
+        </style>
+        
+    </head>
+<body> 
+    <div ng-app="mYapp">
+        <div class="container">
+            <form novalidate>
+            <section ng-controller="parCtrl">
+                <div class="row">
+                    <div class="col-xs-2 text-right">
+                        <label for="name">Name:</label>                
+                    </div>
+                    <div class="col-xs-10">
+                        <input id="name" ng-model="user.name" class="form-control"/>                
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2 text-right">
+                       <label for="age">Age:</label>                 
+                    </div>
+                    <div class="col-xs-10">
+                        <input id="age" ng-model="user.age" class="form-control"/>                
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2 text-right">
+                        <label for="country">Country:</label>                
+                    </div>
+                    <div class="col-xs-10">
+                        {{user.country}}
+                    </div>
+                </div>
+                <div class="row">                
+                    <div class="col-xs-12 text-center">
+                        <button class="btn btn-primary" ng-click="logAge()">Log Age</button>
+                    </div>
+                </div>
+                <hr>
+                <hr>
+                <div child-dir name="user.name" age="user.age" country="{{user.country}}" logger="logAge()">
+                </div>
+            </section>
+            </form>
+            
+            
+            
+        </div>
+        
+    </div>
+    
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>    
+    <script>
+        (function(window,angular){
+            var app=angular.module('mYapp',[]);
+            app.controller('parCtrl',['$scope',function($scope){
+              $scope.user={};
+                $scope.user.name='Tom',
+               $scope.user.age=18,
+                  $scope.user.country='India'                  
+               
+            $scope.logAge=function(){
+                console.log($scope.user.name +'current age:'+ $scope.user.age);
+                
+            }
+            }]);
+            app.directive('childDir',function(){
+                return {
+                    restrict:'AE',
+                    templateUrl:'views/template.html',
+                    scope:{
+                        name:'<',
+                        age:'=',
+                        country:'@',
+                        logger:'&'
+                    },
+                    controller:function($scope,$timeout){
+                        $scope.increamentAge=function(){
+                            $scope.age+=1;
+                            $timeout(function(){
+                                $scope.logger();
+                            },0);
+                        }
+                    }
+                    
+                };
+            });
+            
+            
+        })(window,angular);
+    </script>
+</body> 
+</html>

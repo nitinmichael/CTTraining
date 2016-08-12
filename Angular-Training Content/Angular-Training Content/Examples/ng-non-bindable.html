@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ABC</title>
+
+</head>
+
+<body ng-app="app">
+    <div ng-controller="controllerName">
+        Value 1
+        <input type="number" ng-model="val1" /> Value 2
+        <input type="number" ng-model="val2" />
+        <input type="button" value="Add" ng-click="Add()" />
+        <div>Normal: {{sum}}</div>
+        <div ng-non-bindable>Non-Bindable: {{sum}}</div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+    <script>
+        var app = angular.module("app", []);
+        app.controller('controllerName', ['$scope', function ($scope) {
+            $scope.Add = function () {
+                $scope.sum = $scope.val1 + $scope.val2;
+            }
+    }]);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+<title>Basic Demo on Controller</title>
+<script type="text/javascript"
+    src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="ContactController">
+Greet: <input type="text" ng-model="myname"/>
+<button ng-click="greet()">Greet</button>
+<h2> {{ myname1 }} </h2>
+</div>
+<script type="text/javascript">
+function ContactController($scope) {
+// myname,myname1 ,greet is model data and function assigned to $scope
+$scope.greet = function() { $scope.myname1 = "Hello "+$scope.myname; }
+}
+</script>
+</body>
+</html>

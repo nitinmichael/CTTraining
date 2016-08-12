@@ -1,0 +1,31 @@
+<section class="childDir">
+            <div class="row">
+                <div class="col-xs-2 text-right">
+                    <label for="childName">Name:</label>
+                </div>
+                <div class="col-xs-10">
+                    <input id="childName" ng-model="name" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2 text-right">
+                    <label for="childAge">Age:</label>                
+                </div>
+                <div class="col-xs-10">
+                    {{age}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2 text-right">
+                    <label for="childCountry">Country: </label>               
+                </div>
+                <div class="col-xs-10">
+                    {{country}}
+                </div>
+            </div>
+            <div class="row">                
+                <div class="col-xs-12 text-center">
+                    <button ng-click="increamentAge()" class="btn btn-primary">IncrementAge</button>
+                </div>
+            </div>
+    </section>

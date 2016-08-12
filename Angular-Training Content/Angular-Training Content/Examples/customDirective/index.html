@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<body ng-app="app" data-ng-controller="myCtrl">
+    <div>
+        <my-dir>
+            <div>Angularjs</div>
+        </my-dir>
+
+    </div>
+
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+    </script>
+    <script>
+        (function(){
+            var app = angular.module('app', []);
+            app.controller('myCtrl',['$scope',function ($scope){
+                $scope.person = {
+                  firstName:'Rohan',
+                    lastName:'Vidhan'
+                };
+
+            }]);
+            app.directive('myDir', function () {
+                return {
+                    restrict: 'AEMC',
+                    templateUrl: 'view.html'
+                    
+                    
+                };
+            });
+        })();
+    </script>
+</body>
+
+</html>

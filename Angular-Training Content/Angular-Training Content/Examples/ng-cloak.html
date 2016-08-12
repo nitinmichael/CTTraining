@@ -1,0 +1,91 @@
+<!--<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
+  <script>
+    var app = angular.module("myApp", []);
+
+    app.service('getTestService', function($http) {
+      this.getTestService = function() {
+        return $http({
+          method: 'GET',
+          url:baseURL + '/SemanticWebApp/statistics';
+        });
+      };
+    });
+
+    app.controller("MyTestController", function($scope, getTestService) {
+      $scope.resultData = [];
+
+      getTestService.getTestService().then(function(data) {
+        var items = data.items;
+        angular.forEach(items, function(row) {
+          $scope.resultData.push({
+            "title": row.title
+          });
+        });
+      });
+    });
+  </script>
+</head>
+
+<body ng-controller="MyTestController">
+  <div>The ng-cloak example</div>
+  <div>
+    <div ng-repeat="testResult in resultData">
+      {{testResult.title}}
+    </div>
+  </div>
+</body>-->
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
+  <style>
+    [ng\: cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x- ng-cloak {
+      display: none !important;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
+  <script>
+    var app = angular.module("myApp", []);
+
+    app.service('getTestService', function($http) {
+      this.getTestService = function() {
+        return $http({
+          method: 'GET',
+          url:baseURL + '/SemanticWebApp/statistics'
+        });
+      };
+    });
+
+    app.controller("MyTestController", function($scope, getTestService) {
+      $scope.resultData = [];
+
+      getTestService.getTestService().then(function(data) {
+        var items = data.items;
+        angular.forEach(items, function(row) {
+          $scope.resultData.push({
+            "title": row.title
+          });
+        });
+      });
+    });
+  </script>
+</head>
+
+<body ng-controller="MyTestController" >
+  <div>The ng-cloak example</div>
+  <div ng-cloak>
+    <div ng-repeat="testResult in resultData">
+      {{testResult.title}}
+    </div>
+  </div>
+</body>
+
+</html>

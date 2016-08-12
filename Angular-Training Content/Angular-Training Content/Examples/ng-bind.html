@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <style>
+          body {
+            font-family: Palatino Linotype;
+            color: blue;
+          }
+
+          table.person-data
+          {
+             border:solid 1px black;
+             
+          }
+          
+          table.person-data th, td
+          {
+             text-align:left;
+             border:solid 1px black;
+             padding: 5px 3px;
+          }
+    
+     </style>
+</head>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="customersCtrl"> 
+
+<table class="person-data" cellspacing="0" cellpadding="0">
+  <tr>
+      <th> Name </th>
+      <th> City </th>
+      <th> Country </th>
+  </tr>
+  <tr ng-repeat="x in names">
+      
+    <td> {{ x.Name }} </td>
+    <td> {{ x.City }} </td> 
+    <td> {{ x.Country }} </td>
+  </tr>
+</table>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http) {
+  $http.get("http://www.w3schools.com/angular/customers.php")
+  .then(function (response) {$scope.names = response.data.records;});
+});
+</script>
+
+</body>
+</html>
+
+<!--If you are not using ng-bind, instead something like this:
+
+<div>
+  Hello, {{user.name}}
+</div>
+you might see the actual Hello, {{user.name}} for a second before user.name is resolved (before the data is loaded)
+
+You could do something like this
+
+<div>
+  Hello, <span ng-bind="user.name"></span>
+</div>
+if that's an issue for you.
+
+Another solution is to use ng-cloak.-->

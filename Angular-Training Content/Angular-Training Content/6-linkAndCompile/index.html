@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Controller-Inheritance</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body ng-app="compiler">
+    <div ng-controller="mainController">
+
+        <div ng-repeat="i in [0,1,2]">
+    <simple>
+        <div>Inner content</div>
+    </simple>
+</div>
+        <!--<simple>
+            <div>Inner content</div>
+        </simple>
+        <simple>
+            <div>Inner content</div>
+        </simple>
+        <simple>
+            <div>Inner content</div>
+        </simple>-->
+
+    </div>
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="controller/controller.js"></script>
+</body>
+
+</html>

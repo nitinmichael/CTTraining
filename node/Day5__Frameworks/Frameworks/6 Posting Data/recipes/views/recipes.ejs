@@ -1,0 +1,9 @@
+<h1>All Recipes</h1>
+
+<ul>
+<% recipesbo.forEach(function(recipearg){ %>
+  <li><a href="/recipes/<%= recipearg.url %>"><%= recipearg.name %></a></li>
+<% }) %>
+</ul>
+
+<p><a href="/recipes/suggestget">Suggest a recipe</a></p>

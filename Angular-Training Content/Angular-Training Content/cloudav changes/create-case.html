@@ -1,0 +1,287 @@
+<!--
+*  create-case.html
+*
+*  Copyright (c) 2015 by General Electric Company. All rights reserved.
+*
+*  The copyright to the computer software herein is the property of
+*  General Electric Company. The software may be used and/or copied only
+*  with the written permission of General Electric Company or in accordance
+*  with the terms and conditions stipulated in the agreement/contract
+*  under which the software has been supplied.
+-->
+
+<link rel="stylesheet" type="text/css" href="./modules/caseexchange/modules/create-case/css/create-case.css">
+<div>
+    <div class="create-case-heading">
+        <h2 ng-if="mode === 'CREATE'" id="createCaseTitle">{{'createcase.createacase' | translate}}</h2>
+
+        <h2 ng-if="mode === 'UPDATE' && caseUpdateType === 'ADDCASE'" id="addToCaseTitle">{{'createcase.addtocase' |
+            translate}}</h2>
+
+        <h2 ng-if="mode === 'UPDATE' && caseUpdateType === 'ADDUSERS'" id="addUsersTitle">{{'createcase.addUsers' |
+            translate}}</h2>
+        <span class="pull-right">{{"createcase.attachments" | translate | capitalize}}</span>
+    </div>
+    <section class="module " id="create-case" data-ng-controller="CreateCaseCtrl">
+        <form id="createCaseForm" class="createCaseForm form-horizontal" name="createCaseForm"
+              ng-submit="submitCase(mode)"
+              ge-form-submitted
+              novalidate>
+
+            <h3 ng-if="mode === 'CREATE'" id="caseDetailsTitle">{{ "createcase.caseDetails" | translate }}</h3>
+
+            <h3 ng-if="mode === 'UPDATE'" id="caseInformationTitle">{{ "createcase.caseInformation" | translate }}</h3>
+            <!-- Case To -->
+            <div id="to" class="form-group" ng-if="mode === 'CREATE' || caseUpdateType === 'ADDUSERS'">
+                <label class="col-lg-2 col-md-2 col-sm-3 control-label">{{'createcase.to' | translate}}*</label>
+                <ge-control-group error-on-submit="true" error-on-dirty="true" class="col-lg-4 col-md-5 col-sm-6">
+                    <typeahead-input
+                            service-url="{{usersURL}}"
+                            added-data="addedRecipients"
+                            is-multiple="true"
+                            input-placeholder="{{'createcase.toFieldPlaceholder' | translate}}"
+                            no-data-check="noRecipientsAdded">
+                    </typeahead-input>
+                </ge-control-group>
+
+                <ge-control-group error-on-submit="true" error-on-dirty="true" class="col-md-2 col-sm-3">
+                    <div id="priority" class=" btn-group offsetButton "  >
+                        <button id="priority-button"
+                                class="btn dropdown-toggle btn-priority" data-toggle="dropdown">
+                            <i class="icon-ico_flag_sm priority-flag-icon" ng-if="formData.priority.icon"></i> {{formData.priority.name}}
+                            <i class="icon-chevron-down pull-right priority-dropdown-icon"></i>
+                        </button>
+                        <ul class="dropdown-menu priority-dropdown-menu" id="priority-list">
+                            <li ng-repeat="option in priorityOptions" ng-click="formData.priority = option">
+                                <a href="#" data-toggle="dropdown">
+                                    <i ng-class="{'icon-ico_flag_sm priority-flag-icon': option.icon}"></i>
+                                    <span ng-class="{'priority-noflag': !option.icon}">{{option.name}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </ge-control-group>
+            </div>
+
+            <!-- Case Subject -->
+            <div class="form-group" id="caseSubject">
+                <label class="col-lg-2 col-md-2 col-sm-3 control-label">{{mode === 'UPDATE' ? ('createcase.subject' |
+                    translate) :
+                    ('createcase.subject' | translate) + '*'}}</label>
+                <ge-control-group ng-if="mode === 'CREATE' " error-on-submit="true"
+                                  error-on-dirty="true" class="col-lg-4 col-md-5 col-sm-6">
+                    <input required type="text" maxlength="120"
+                           placeholder="{{'createcase.subjectPlaceholder' | translate}}"
+                           id="subjectInput" name="subjectInput"
+                           ng-model="formData.subjectInput"
+                           class="form-control case-subject"
+                           ge-xss reset-on-script>
+                </ge-control-group>
+                <span ng-if="mode === 'UPDATE' " class="col-lg-4 col-md-5 col-sm-6 subjectUpdate">{{formData.subjectInput}}</span>
+                <ge-control-group error-on-submit="true" error-on-dirty="true" class="col-md-2 col-sm-3" ng-if="mode === 'UPDATE' && caseUpdateType === 'ADDCASE'">
+                    <div id="priority" class=" btn-group offsetButton" ng-class="{'alignPriorityButton' : mode === 'UPDATE'}" >
+                        <button id="priority-button"
+                                class="btn dropdown-toggle btn-priority" data-toggle="dropdown">
+                            <i class="icon-ico_flag_sm priority-flag-icon" ng-if="formData.priority.icon"></i> {{formData.priority.name}}
+                            <i class="icon-chevron-down pull-right priority-dropdown-icon"></i>
+                        </button>
+                        <ul class="dropdown-menu priority-dropdown-menu" id="priority-list">
+                            <li ng-repeat="option in priorityOptions" ng-click="formData.priority = option">
+                                <a href="#" data-toggle="dropdown">
+                                    <i ng-class="{'icon-ico_flag_sm priority-flag-icon': option.icon}"></i>
+                                    <span ng-class="{'priority-noflag': !option.icon}">{{option.name}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </ge-control-group>
+            </div>
+
+            <!-- Clinical Reason -->
+            <div id="clinicalReasonContainer" ng-if="mode === 'CREATE'" class="form-group">
+                <label class="control-label col-lg-2 col-md-2 col-sm-3 ">{{('createcase.clinicalReason' | translate) + '*'}}</label>
+                <ge-control-group error-on-submit="true" error-on-dirty="true" class="col-lg-4 col-md-5 col-sm-6 col-xs-6">
+                    <select required id="clinicalReason" class="mandatory-dropdown form-control" name="clinicalReason"
+                            ng-model="formData.clinicalReason"
+                            ng-options="option.value for option in clinicalReasons track by option.value">
+                        <option value="" ng-selected="selected">{{('createcase.selectClinicalReason' | translate)}}
+                        </option>
+                    </select>
+                </ge-control-group>
+            </div>
+
+            <!-- Billing Organization -->
+            <div id="billingOrganizationConainer" ng-if="mode === 'CREATE'" class="form-group">
+                <label class="control-label col-lg-2 col-md-2 col-sm-3 ">{{('createcase.billingOrganization' | translate) + '*'}}</label>
+                <ge-control-group error-on-submit="true" error-on-dirty="true" class="col-lg-4 col-md-5 col-sm-6 col-xs-6">
+                    <select required id="billingOrganization" class="mandatory-dropdown form-control" 
+                            name="billingOrganization"
+                            ng-model="selectedBillingOrganization"
+                            ng-options="option as option.display for option in billingOrganizationList track by option.reference">
+                        <option ng-selected="selected" value="">{{('createcase.selectOrganization' | translate)}}
+                        </option>
+                    </select>
+                </ge-control-group>
+            </div>
+
+            <div id="otherReason"
+                 ng-class="{ 'show-clinical-reason-other' : formData.clinicalReason.id === clinicalReasonOtherId }"
+                 ng-if="formData.clinicalReason.id === clinicalReasonOtherId && mode === 'CREATE'" class="form-group">
+                <label class="control-label col-lg-2 col-md-2 col-sm-3 "></label>
+                <ge-control-group error-on-submit="true" error-on-dirty="true" class="col-lg-4 col-md-5 col-sm-6 col-xs-6">
+                    <input ng-required="formData.clinicalReason.id === clinicalReasonOtherId"
+                           type="text" maxlength="40"
+                           placeholder="{{'createcase.enterClinicalReason' | translate}}"
+                           id="otherClinicalReason" name="otherClinicalReason"
+                           ng-model="formData.otherClinicalReason"
+                           class="form-control "
+                           ge-xss reset-on-script>
+                </ge-control-group>
+            </div>
+
+            <!-- Case Message -->
+            <div class="form-group" id="messageInput">
+                <label class="control-label col-lg-2 col-md-2 col-sm-3 ">{{('createcase.message' | translate) +
+                    '*'}}</label>
+                <ge-control-group error-on-submit="true"
+                                  error-on-dirty="true" class="col-lg-4 col-md-5 col-sm-6 col-xs-6">
+                    <message-field
+                            field-id="caseMessage"
+                            field-name="caseMessage"
+                            field-model="formData.caseMessage"
+                            field-maxlength="500"
+                            field-disabled="false"
+                            field-empty-check="noMessageAdded">
+                    </message-field>
+                </ge-control-group>
+            </div>
+
+            <!-- Case PHI Acknowledgment -->
+            <div class="phi-acknowledgment form-group" id="phi-acknowledgment"
+                 ng-if="mode === 'CREATE' || caseUpdateType === 'ADDUSERS'">
+                <label class=" col-lg-2 col-md-2 col-sm-3 "></label>
+                <ge-control-group error-on-submit="true"
+                                  error-on-dirty="true" nested-input="true" class="col-lg-5 col-md-5 col-sm-6 ">
+                    <input required type="checkbox" id="phiAckCheckbox"
+                           name="phiAckCheckbox" class="case-checkbox checkbox"
+                           ng-model="formData.acknowledgePHI"><span class="phi-label"><strong
+                        ng-if="isCurrentUserPatient">{{'createcase.important' | translate}}: </strong>{{(isCurrentUserPatient
+                    ? 'createcase.acknowledgePHIPatient' : 'createcase.acknowledgePHI') | translate}}</span>
+                </ge-control-group>
+            </div>
+
+            <hr class="page-divider "/>
+
+            <h3 class="title-add-attachments" id="addAttachmentTitle"
+                ng-if="mode === 'CREATE' || caseUpdateType === 'ADDCASE'">{{
+                "createcase.addAttachments" | translate }}
+                ({{ fileList.length + attachedFileList.length +
+                selectedListItems.length + existingListItems.length }} {{ "createcase.attachments" | translate }})</h3>
+
+
+            <div ng-if="caseUpdateType !== 'ADDUSERS'" class="row">
+
+                <div class="col-lg-3 col-md-4 ipad-link-container-row">
+                    <button type="button" id="addAttachmentFromLocal"
+                            ng-click="browseFolders(); $event.stopPropagation();"
+                            class="btn btn-inverse link-container ">
+                        <div class="button-content">
+                            <div class="inline-link-container">
+                                <i class="icon-ico_attachment_lg  icon-alignment"></i>
+                            </div>
+
+                            <div class="narrow-line" >
+                                <div >
+                                    <span class=" align-content " >{{ "createcase.localFileSystem1" | translate }}</span>
+                                </div>
+                                <div >
+                                    <span class=" align-content ">{{ "createcase.localFileSystem2" | translate }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+                <div class="col-lg-3 col-md-4 ipad-link-container-row ">
+                    <button id="addAttachmentFromImagingDevice" ng-if="!isCurrentUserPatient"
+                            ng-click="navigateToPacsQuery($event);" type="button"
+                            class="btn btn-inverse link-container ">
+                        <div   class="button-content">
+                            <i class="icon-ico_attachment_lg  pull-left"></i>
+                            <span class="align-content">{{"createcase.imagingDevice" | translate}}</span>
+                        </div>
+                    </button>
+                </div>
+                <div class="col-lg-3 col-md-4 ipad-link-container-row ">
+                    <button id="addFiles" ng-click="browseFiles(); $event.stopPropagation();" type="button"
+                            class="btn btn-inverse  link-container ">
+                        <div class="button-content">
+                            <i class="icon-ico_attachment_lg pull-left"></i>
+                            <span class="align-content" id="browseFilesForUpload">{{"createcase.createacase.option.files" | translate}}</span>
+                        </div>
+                    </button>
+                </div>
+
+            </div>
+
+            <input id="fileInput" onchange="angular.element(this).scope().addFiles(this.files)"
+                   class="custom-hide-file-input" type="file"
+                   multiple/>
+            <input id="folderInput" class="custom-hide-file-input" type="file" webkitdirectory directory multiple/>
+
+            <!-- Patient Banner -->
+            <!-- display divider and banner only if patient data exist -->
+            <hr ng-if="existingListItems.length > 0 || patientData.identifier" class="page-divider"/>
+            <div class="row">
+                <div class="patientBannerContainer" ng-if="existingListItems.length > 0 || patientData.identifier"
+                     ng-include="'./modules/caseexchange/views/patient-module/patient-module.html'"></div>
+            </div>
+            <ge-attachment-list id="existing-dicom-attachments"
+                                view="false"
+                                header-text='{{"createcase.fromDicom" | translate}}'
+                                attachment-type="ImagingStudy"
+                                file-list="selectedListItems"
+                                callback="checkStudyLength()"></ge-attachment-list>
+
+
+            <!-- Attached Non-Dicom files -->
+            <ge-attachment-list id="non-dicom-attachments"
+                                view="false"
+                                header-text='{{"createcase.createacase.option.files" | translate}}'
+                                attachment-type="DocumentReference"
+                                file-list="fileList"></ge-attachment-list>
+
+            <!-- List of already attached files -->
+            <div class="row">
+            <div id="toggleShowAttachedFilesLink" class="toggle-view-case-data"
+                 ng-if="mode === 'UPDATE' && caseUpdateType !== 'ADDUSERS' && (existingListItems.length > 0 || attachedFileList.length > 0)"
+                 ng-click="toggleShowAttachedFiles()">
+                <i ng-if="showAttachedFiles" class="icon-ico_carot_down_lg"></i>
+                <i ng-if="!showAttachedFiles" class="icon-ico_carot_right_lg"></i>
+                <span id="toggleShowAttachedFiles" >{{'createcase.toggleShowAttachedFiles' | translate}}</span>
+            </div>
+                </div>
+
+            <!-- Container to display already available case attachments -->
+                 <div id="existingAttachmentsContainer" ng-if="showAttachedFiles" ng-include
+                     src="'./modules/caseexchange/modules/create-case/views/case-attachments.html'"></div>
+
+            <hr ng-if="caseUpdateType !== 'ADDUSERS'" class="page-divider"/>
+
+
+            <!-- Footer Buttons -->
+            <div class="col-lg-3 col-lg-offset-9 col-md-3  col-md-offset-9  col-sm-4  col-sm-offset-8 button-container">
+                <button id="cancelButton" class="btn btn-inverse btn-custom-padding" type="button" ng-click="cancelCreateCase();">
+                    {{'createcase.cancel' | translate}}
+                </button>
+                <button id="shareButton" type="submit" class="btn btn-primary btn-custom-padding" ng-if="mode === 'CREATE'">
+                    {{'createcase.share' |
+                    translate}}
+                </button>
+                <button id="addButton" type="submit" class="btn btn-primary btn-custom-padding" ng-if="mode === 'UPDATE'">
+                    {{'createcase.add' |
+                    translate}}
+                </button>
+            </div>
+        </form>
+    </section>
+</div>

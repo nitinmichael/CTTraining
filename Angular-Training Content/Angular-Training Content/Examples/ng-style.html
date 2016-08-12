@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ng-if example</title>
+        <style>
+            .pending-delete {
+                background-color: pink
+            }
+        </style>
+    </head>
+
+<body>
+
+<div ng-app="myApp" ng-controller='MyCtrl' ng-style="{color: myColor}">
+
+  <input type="text" ng-model="myColor" placeholder="enter a color name">
+
+  <div ng-repeat="item in items" ng-class="{'pending-delete': item.checked}">
+    name: {{item.name}}, {{item.title}}
+    <input type="checkbox" ng-model="item.checked" />
+    <span ng-show="item.checked"/><span>(will be deleted)</span>
+  </div>
+  <p>
+    <div ng-hide="myColor== 'red'">I will hide if the color is set to 'red'.</div>
+</p>
+</div>
+    
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script>
+angular.module('myApp', [])
+.controller('MyCtrl', function($scope) {
+  $scope.items = [{
+      name: 'Misko',
+      title: 'Angular creator'
+    }, {
+      name: 'Igor',
+      title: 'Meetup master'
+    }, {
+      name: 'Vojta',
+      title: 'All-around superhero'
+    }
+
+  ];
+});
+</script>
+
+</body>
+</html>

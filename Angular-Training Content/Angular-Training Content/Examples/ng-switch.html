@@ -1,0 +1,70 @@
+<!doctype html>
+<html ng-app="Demo">
+<head>
+    <meta charset="utf-8" />
+
+    <title>
+        Binding Multiple ngSwitchWhen Cases To The Same Value In AngularJS
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="./demo.css"></link>
+</head>
+<body ng-controller="AppController">
+
+    <h1>
+        Binding Multiple ngSwitchWhen Cases To The Same Value In AngularJS
+    </h1>
+    <ul ng-switch="showingEven">
+        <li ng-switch-when="false">
+            1 <em>is odd</em>
+        </li>
+        <li ng-switch-when="true">
+            2 <em>is even</em>
+        </li>
+        <li ng-switch-when="false">
+            3 <em>is odd</em>
+        </li>
+        <li ng-switch-when="true">
+            4 <em>is even</em>
+        </li>
+        <li ng-switch-when="false">
+            5 <em>is odd</em>
+        </li>
+        <li ng-switch-when="true">
+            6 <em>is even</em>
+        </li>
+    </ul>
+
+    <p>
+        <button ng-click="toggleEvenOdd()">Toggle Even / Odd</button>
+    </p>
+
+
+    <!-- Load scripts. -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <script type="text/javascript">        
+        var app = angular.module( "Demo", [] );        
+        app.controller(
+            "AppController",
+            function( $scope ) {
+                $scope.showingEven = false;
+                
+                $scope.toggleEvenOdd = function() {
+                    $scope.showingEven = ! $scope.showingEven;
+                };
+            }
+        );
+    </script>
+
+</body>
+</html>
+
+
+<!--Talk about ng-switch default
+
+<ANY ng-switch="expression">
+  <ANY ng-switch-when="matchValue1">...</ANY>
+  <ANY ng-switch-when="matchValue2">...</ANY>
+  <ANY ng-switch-default>...</ANY>
+</ANY>-->

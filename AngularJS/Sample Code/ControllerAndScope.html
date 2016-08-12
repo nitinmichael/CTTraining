@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+	<html ng-app>
+	<head>
+		<title>Basic Demo on Controller and Scope</title>
+		<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+	</head>
+	<body>
+		<div ng-controller="PatientController">
+			<div>
+				<div style="float:left;"><b>First Name:</b></div>
+				<div tyle="float:right;">{{ patientFirstName }}</div>
+			</div>
+			<div>&nbsp;</div>
+			<div>
+				<div style="float:left;"><b>Last Name:</b></div>
+				<div tyle="float:right;">{{ patientLastName }}</div>
+			</div>
+			<div>&nbsp;</div>
+			<div>
+				<div style="float:left;"><b>Patient Full Name:</b></div>
+				<div tyle="float:right;">{{ patient }}</div>
+			</div>
+			<div>&nbsp;</div>
+			<div>
+				<input type="button" ng-click="getFullName()" value="Get Full Name" />
+			</div>
+		</div>
+		<script type="text/javascript">
+		function PatientController($scope) {
+			$scope.patientFirstName = "Test";
+			$scope.patientLastName = "Patient";
+			$scope.patient = "";
+			$scope.getFullName = function() {
+				$scope.patient =  $scope.patientFirstName +", "+ $scope.patientLastName;				
+			};
+		}
+		</script>
+	</body>
+	</html>

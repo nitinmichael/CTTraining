@@ -1,0 +1,34 @@
+
+
+<!DOCTYPE html>
+<html ng-app>
+
+<body ng-init="count=0">
+    <!--Click-->
+
+<button ng-click="count = count + 1" >
+  Increment on click
+</button>
+<button ng-dblclick="count = count + 1" >
+  Increment (on double click)
+</button>
+<button ng-mousedown="count = count + 1" >
+  Increment (on mouse down)
+</button>
+<button ng-mouseup="count = count + 1" >
+  Increment (on mouse up)
+</button>
+<span>
+  count: {{count}}
+</span>
+
+    
+<input ng-keydown="count = count + 1" ng-init="count1=0">
+key down count: {{count1}}    
+
+    
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+</body>
+</html>
+

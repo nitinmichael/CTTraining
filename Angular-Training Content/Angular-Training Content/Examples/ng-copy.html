@@ -1,0 +1,26 @@
+<!--
+<window, input, select, textarea, a
+  ng-copy="expression">
+...
+</window, input, select, textarea, a>
+-->
+
+
+<!DOCTYPE html>
+<html>
+
+<body ng-app>
+<input ng-copy="copied=true" ng-init="copied=false; value='copy me'" ng-model="value">
+copied: {{copied}}
+    
+<input ng-cut="cut=true" ng-init="cut=false; value='cut me'" ng-model="value">
+cut: {{cut}}
+    
+<input ng-paste="paste=true" ng-init="paste=false" placeholder='paste here'>
+pasted: {{paste}}
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+</body>
+</html>

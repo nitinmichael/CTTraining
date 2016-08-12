@@ -1,0 +1,7 @@
+<h1>All Recipes</h1>
+
+<ul>
+<% recipesparam.forEach(function(rec){ %>
+  <li><a href="/recipes/<%= rec.url %>"><%= rec.name %></a></li>
+<% }) %>
+</ul>

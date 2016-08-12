@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <div data-ng-app="" data-ng-init="names={a1:5,a2:6}">
+        <p>Looping with ng-repeat:</p>
+        <ul>
+            <li data-ng-repeat="(k,v) in names ">
+                {{ k }}:{{ names[k] }}-->{{$index}} <span ng-if="$last">I'm last</span>
+                <span ng-if="$first">I'm first</span>
+                <span ng-if="$even">I'm even</span>
+                <span ng-if="$odd">I'm odd</span>
+            </li>
+        </ul>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</body>
+
+</html>
+
+<!--work on $index,$first,$last,$even,$odd and 
+ng-repeat="n in [42, 42, 43, 43] track by $index" 
+-->

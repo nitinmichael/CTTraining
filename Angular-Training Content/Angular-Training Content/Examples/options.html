@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<body ng-app="app" data-ng-controller="myCtrl">
+    <select>
+        <option value="" ng-selected>Select a value</option>
+        <option data-ng-repeat="item in a" ng-value="item">{{item}}</option>
+    </select>
+
+
+    <select ng-options="item for item in a" ng-model="item">
+        <option value="" ng-selected>Select a value</option>
+    </select>
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script>
+        var app = angular.module('app', []);
+        app.controller('myCtrl', function ($scope) {
+            $scope.a = ['s', 'c', 'f'];
+
+        });
+    </script>
+</body>
+
+</html>

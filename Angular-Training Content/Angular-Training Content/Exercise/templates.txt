@@ -1,0 +1,17 @@
+<!--Template 1 -->
+
+<!-- addNewOrder.html -->
+    <h2>Add New Order</h2>
+
+    {{ message }}
+<!--Template 1  ends -->
+
+
+<Template 2  -->
+
+<!-- showOrder.html -->
+    <h2>Show Orders</h2>
+
+    {{ message }}
+    
+<!--Template 2  ends -->    

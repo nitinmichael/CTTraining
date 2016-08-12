@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="plunker">
+
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS-MultiElement</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://code.angularjs.org/1.2.6/angular.js" data-semver="1.2.25"></script>
+    <script src="app.js"></script>
+</head>
+
+<body ng-controller="MainCtrl as vm">
+
+    <h1>Make It Pretty!</h1>
+
+    <button class="btn btn-default btn-lg" ng-click="vm.toggle()">{{ vm.buttonLabel }}</button>
+
+    <p make-pretty-start="{{ vm.pretty }}">'You should learn not to make personal remarks,' Alice said with some severity; 'it's very rude.'</p>
+
+    <p>The Hatter opened his eyes very wide on hearing this; but all he SAID was, 'Why is a raven like a writing-desk?'</p>
+
+    <p make-pretty-end>'Come, we shall have some fun now!' thought Alice. 'I'm glad they've begun asking riddles.&mdash;I believe I can guess that,' she added aloud.</p>
+
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Example - example-multiSlotTranscludeExample-production</title>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular.min.js"></script>
+    <script>
+        (function (angular) {
+            'use strict';
+            angular.module('multiSlotTranscludeExample', [])
+                .directive('pane', function () {
+                    return {
+                        restrict: 'E',
+                        transclude: {
+                            'paneTitle': '?title',
+                            'paneBody': 'body'
+                        },
+                        template: '<div style="border: 1px solid black;">' +
+                            '<div ng-transclude="title" style="background-color: gray"></div>' +
+                            '<div ng-transclude="body"></div>' +
+                            '</div>'
+                    };
+                })
+                .controller('ExampleController', ['$scope', function ($scope) {
+                    $scope.title = 'Lorem Ipsum';
+                    $scope.link = "https://google.com";
+                    $scope.text = 'Neque porro quisquam est qui dolorem ipsum quia dolor...';
+}]);
+        })(window.angular);
+    </script>
+
+
+
+</head>
+
+<body ng-app="multiSlotTranscludeExample">
+    <div ng-controller="ExampleController">
+        <input ng-model="title" aria-label="title">
+        <br/>
+        <textarea ng-model="text" aria-label="text"></textarea>
+        <br/>
+        <pane>
+            <pane-title><a ng-href="{{link}}">{{title}}</a></pane-title>
+            <pane-body>
+                <p>{{text}}</p>
+            </pane-body>
+        </pane>
+    </div>
+</body>
+
+</html>
